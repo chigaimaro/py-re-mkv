@@ -1,12 +1,12 @@
-from mkvlib import remsys
+from mkvlib import remsys, remset, remmedia
 
 def main():
     """ Main program loop """
     log = remsys.config_logger('DEBUG')
     log.info("Log file initialized")
     # Check version of python
-    if not remsys.check_py_version():
-        exit(0)
+    remsys.check_py_version()
+    session = remmedia.AvSession()
 
 
 if __name__ == '__main__':

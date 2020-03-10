@@ -47,8 +47,13 @@ def check_py_version():
     py_version = sys.version_info
     log.debug(py_version)
     if py_version[0] < 3 or py_version[1] < 7:
-        log.error("Please update your version of Python to at least 3.7.1")
+        exit_on_error("Please update your version of Python to at least 3.7.1")
         return False
     else:
         log.info("Python version check passes..")
         return True
+
+# Log error and exit
+def exit_on_error(message):
+    log.error(message)
+    exit(1)
