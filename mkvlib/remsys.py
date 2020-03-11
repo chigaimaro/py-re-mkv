@@ -5,11 +5,9 @@ import sys
 import hashlib
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from datetime import datetime
 
 log = logging.getLogger(__name__)
-
-from datetime import datetime
-from pathlib import Path
 
 
 # Setup logging
@@ -33,12 +31,12 @@ def config_logger(log_level="INFO"):
         '%(asctime)s : [%(module)s]: %(levelname)s : %(message)s')
     cav_fh_handler = logging.FileHandler(
         filename=log_path.joinpath(session_log_name), mode='w')
-    log = logging.getLogger()
-    log.setLevel(log_level)
+    setuplog = logging.getLogger()
+    setuplog.setLevel(log_level)
     cav_fh_handler.setLevel(log_level)
     cav_fh_handler.setFormatter(cav_format)
     log.addHandler(cav_fh_handler)
-    return log
+    return setuplog
 
 
 # Check Python Version
@@ -52,6 +50,7 @@ def check_py_version():
     else:
         log.info("Python version check passes..")
         return True
+
 
 # Log error and exit
 def exit_on_error(message):

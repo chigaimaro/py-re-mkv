@@ -5,6 +5,7 @@ from mkvlib import remsys
 
 log = logging.getLogger(__name__)
 
+
 class AvSettings:
     def __init__(self):
         self.settings_file = "settings.ini"
@@ -69,12 +70,10 @@ class AvSettings:
                 log.warning(
                     f"{key} directory not found, using automatic settings.")
 
-
     def init_settings(self):
         self.read_config_file()
         self.test_utils()
         self.test_folders()
-
 
     def clear_all(self):
         self.utils.clear()
@@ -82,4 +81,3 @@ class AvSettings:
         self.session_limits.clear()
         self.file_processing.clear()
         self.prefs.clear()
-
