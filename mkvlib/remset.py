@@ -46,10 +46,8 @@ class AvSettings:
     def test_utils(self):
         log.info("Testing for dependencies")
         for key, value in self.utils.items():
-            log.debug("Checking for: {0}".format(value))
-            try:
-               Path(value).is_file()
-            except FileNotFoundError:
+            log.debug(f"Checking for: {value}")
+            if not Path(value).exists():
                 remsys.exit_on_error(f"Dependency: {key} not found, quitting")
             else:
                 log.info(f"Found dependency: {key}")
@@ -59,10 +57,9 @@ class AvSettings:
         for key, value in self.folders.items():
             results = Path(value).is_dir()
             if not results and key == 'input':
-                log.error(
+                remsys.exit_on_error(
                     f"{key} directory not found, please verify path. quitting"
                 )
-                exit(1)
             elif not results and key == 'output':
                 self.file_processing["auto_output"] = True
                 log.warning(
