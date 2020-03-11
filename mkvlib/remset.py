@@ -13,7 +13,6 @@ class AvSettings:
         self.folders = {}
         self.session_limits = {}
         self.file_processing = {
-            "auto_output": False,
             "auto_temp": False
         }
         self.prefs = {}
@@ -56,15 +55,11 @@ class AvSettings:
     def test_folders(self):
         log.info("Testing Folder paths")
         for key, value in self.folders.items():
-            results = Path(value).is_dir()
-            if not results and key == 'input':
+            results = Path(value).exists()
+            if not results and key == 'input' or 'output':
                 remsys.exit_on_error(
                     f"{key} directory not found, please verify path. quitting"
                 )
-            elif not results and key == 'output':
-                self.file_processing["auto_output"] = True
-                log.warning(
-                    f"{key} directory not found, using automatic settings.")
             elif not results and key == 'temp':
                 self.file_processing["auto_temp"] = True
                 log.warning(
