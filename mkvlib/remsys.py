@@ -27,16 +27,16 @@ def config_logger(log_level="INFO"):
         with open(session_log_name) as file:
             file.write(message)
         exit(1)
-    cav_format = logging.Formatter(
+    log_format = logging.Formatter(
         '%(asctime)s : [%(module)s]: %(levelname)s : %(message)s')
-    cav_fh_handler = logging.FileHandler(
+    log_fh_handler = logging.FileHandler(
         filename=log_path.joinpath(session_log_name), mode='w')
-    setuplog = logging.getLogger()
-    setuplog.setLevel(log_level)
-    cav_fh_handler.setLevel(log_level)
-    cav_fh_handler.setFormatter(cav_format)
-    log.addHandler(cav_fh_handler)
-    return setuplog
+    setup_log = logging.getLogger()
+    setup_log.setLevel(log_level)
+    log_fh_handler.setLevel(log_level)
+    log_fh_handler.setFormatter(log_format)
+    log.addHandler(log_fh_handler)
+    return setup_log
 
 
 # Check Python Version

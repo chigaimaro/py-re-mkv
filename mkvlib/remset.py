@@ -15,7 +15,7 @@ class AvSettings:
         self.file_processing = {
             "auto_temp": False
         }
-        self.prefs = {}
+        self.preferences = {}
         self.init_settings()
 
     def read_config_file(self):
@@ -38,7 +38,7 @@ class AvSettings:
                     self.file_processing.update(
                         {each_key: bool(each_value)})
                 elif 'Preferences' in each_section:
-                    self.prefs.update(
+                    self.preferences.update(
                         {each_key: tuple(str(each_value).split(','))})
                 log.debug(f"{each_key}: {each_value}")
         log.info("Loaded settings from file")
@@ -75,4 +75,4 @@ class AvSettings:
         self.folders.clear()
         self.session_limits.clear()
         self.file_processing.clear()
-        self.prefs.clear()
+        self.preferences.clear()
