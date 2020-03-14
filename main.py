@@ -7,8 +7,8 @@ def main():
     log.info("Log file initialized")
     # Check version of python
     remsys.check_py_version()
-    session = remmedia.AvSession()
-    #TODO -
+    session = remmedia.RemSession()
+
 
 if __name__ == '__main__':
     main()
