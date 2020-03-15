@@ -12,3 +12,8 @@ class RemSession:
         self.current_file_map = None
         # TODO - Add media related variables
 
+    def __next__(self):
+        pass
+
+    def initialize_queue(self):
+        self.settings = None
