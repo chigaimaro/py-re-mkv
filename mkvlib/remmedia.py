@@ -1,4 +1,4 @@
-# Contains media processing related functions
+# Contains session settings
 import logging
 from mkvlib import remset, remfiles
 
@@ -17,8 +17,7 @@ class RemSession:
     def initialize_queue(self):
         queue = []
         for ext in remfiles.mkv_extensions:
-            new_ext = str('**/' + ext)
-            queue.extend(self.settings.folders['input-folder'].glob(new_ext))
+            queue.extend(self.settings.folders['input-folder'].glob(str('**/' + ext)))
         return queue
 
     # TODO Create File map function
