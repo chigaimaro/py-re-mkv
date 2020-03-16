@@ -51,6 +51,24 @@ def check_py_version():
         return True
 
 
+# Clean up logs
+def clear_logs(amount):
+    # Takes an amount as a limit and removes log files over that limit
+    log_file_list = sorted(Path.cwd().joinpath("logs").glob('*.log'))
+    deletion_retry = 0
+    while len(log_file_list) > amount and deletion_retry < 3:
+        for file_to_delete in log_file_list:
+            try:
+                log.debug(
+                    f"Attempting to remove: {file_to_delete}")
+                os.remove(str(file_to_delete))
+            except OSError:
+                log.error(f"Error deleting {file_to_delete}")
+                deletion_retry += 1
+            else:
+                log.info(f"Removed old log file: {file_to_delete}")
+
+
 # Log error and exit
 def exit_on_error(message):
     log.error(message)
