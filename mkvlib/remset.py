@@ -1,8 +1,9 @@
+# Contains session settings
 import configparser
 import logging
 import os
 from pathlib import Path
-from mkvlib import remsys
+from mkvlib import remfiles, remsys
 
 log = logging.getLogger(__name__)
 
@@ -15,7 +16,7 @@ def test_util(util_path):
         return Path(util_path)
 
 
-class AvSettings:
+class RemSession:
     def __init__(self):
         self.settings_file = "settings.ini"
         self.utils = {}
@@ -26,6 +27,11 @@ class AvSettings:
         self.file_processing = {}
         self.preferences = {}
         self.read_config_file()
+        self.queue = sorted(self.initialize_queue())
+        self.current_file_map = None
+
+    def __next__(self):
+        pass
 
     def read_config_file(self):
         config = configparser.ConfigParser(allow_no_value=True)
@@ -54,6 +60,12 @@ class AvSettings:
                 log.debug(f"{each_key}: {each_value}")
         log.info("Loaded settings from file")
 
+    def initialize_queue(self):
+        queue = []
+        for extension in remfiles.container_extensions:
+            queue.extend(self.folders['input-folder'].glob(remfiles.set_extension(extension)))
+        return queue
+
     def test_folder(self, input_folder, folder_type):
         results = os.path.exists(input_folder)
         if not results and (folder_type == 'input-folder' or folder_type == 'output-folder'):
@@ -63,6 +75,11 @@ class AvSettings:
         elif results and folder_type == 'auto':
             self.folders["auto_temp"] = False
             log.info(f"{input_folder} found, not using automatic settings.")
+        elif not results and folder_type == 'auto':
+            self.folders["auto_temp"] = False
+            log.warning(f"{input_folder} not found, using automatic settings.")
+            input_folder = None
+            return input_folder
         return Path(input_folder)
 
     def clear_all(self):
@@ -71,3 +88,5 @@ class AvSettings:
         self.session_limits.clear()
         self.file_processing.clear()
         self.preferences.clear()
+
+    # TODO Create File map function
