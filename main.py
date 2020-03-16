@@ -1,4 +1,4 @@
-from mkvlib import remsys, remset
+from mkvlib import remsys, remset, remvideo
 
 
 def main():
@@ -8,6 +8,7 @@ def main():
     # Check version of python
     remsys.check_py_version()
     session = remset.RemSession()
+    next_step = remvideo.VideoProperties(session)
 
 
 if __name__ == '__main__':

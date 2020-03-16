@@ -4,6 +4,7 @@ import errno
 import sys
 import hashlib
 from pathlib import Path
+import subprocess
 from tempfile import TemporaryDirectory
 from datetime import datetime
 
@@ -67,6 +68,11 @@ def clear_logs(amount):
                 deletion_retry += 1
             else:
                 log.info(f"Removed old log file: {file_to_delete}")
+
+
+# Run process
+def invoke_cmd(cmd):
+    return subprocess.run(cmd, capture_output=True, text=True)
 
 
 # Log error and exit

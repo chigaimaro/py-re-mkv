@@ -3,7 +3,7 @@ import configparser
 import logging
 import os
 from pathlib import Path
-from mkvlib import remfiles, remsys
+from mkvlib import remfiles, remsys, remvideo
 
 log = logging.getLogger(__name__)
 
@@ -28,10 +28,6 @@ class RemSession:
         self.preferences = {}
         self.read_config_file()
         self.queue = sorted(self.initialize_queue())
-        self.current_file_map = None
-
-    def __next__(self):
-        pass
 
     def read_config_file(self):
         config = configparser.ConfigParser(allow_no_value=True)
