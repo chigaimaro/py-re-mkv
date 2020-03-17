@@ -74,7 +74,6 @@ def clear_logs(amount):
 def invoke_cmd(cmd):
     return subprocess.run(cmd, capture_output=True, text=True)
 
-
 # Log error and exit
 def exit_on_error(message):
     log.error(message)

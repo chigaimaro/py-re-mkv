@@ -1,11 +1,15 @@
-from mkvlib import remsys, remfiles
+from mkvlib import remsys, remmeta
 import json
 
 
-class VideoProperties:
-    def __init__(self, videofile):
-        general = None
-        video = None
-        audio = None
-        subtitles = None
-        chapters = None
+class VideoProcessor:
+    """Process video file"""
+    def __init__(self, session, utils):
+        self.session = session
+        self.file_parts = None
+        self.info_global = None
+        self.info_video = None
+        self.info_audio = None
+        self.info_subtitles = None
+        self.info_chapters = None
+

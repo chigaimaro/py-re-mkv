@@ -8,7 +8,6 @@ def main():
     # Check version of python
     remsys.check_py_version()
     session = remset.RemSession()
-    next_step = remvideo.VideoProperties(session)
 
 
 if __name__ == '__main__':

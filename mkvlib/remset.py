@@ -3,7 +3,7 @@ import configparser
 import logging
 import os
 from pathlib import Path
-from mkvlib import remfiles, remsys, remvideo
+from mkvlib import remmeta, remsys, remvideo
 
 log = logging.getLogger(__name__)
 
@@ -27,7 +27,7 @@ class RemSession:
         self.file_processing = {}
         self.preferences = {}
         self.read_config_file()
-        self.queue = sorted(self.initialize_queue())
+        self.queue = iter(sorted(self.initialize_queue()))
 
     def read_config_file(self):
         config = configparser.ConfigParser(allow_no_value=True)
@@ -58,8 +58,8 @@ class RemSession:
 
     def initialize_queue(self):
         queue = []
-        for extension in remfiles.container_extensions:
-            queue.extend(self.folders['input-folder'].glob(remfiles.set_extension(extension)))
+        for extension in remmeta.container_extensions:
+            queue.extend(self.folders['input-folder'].glob(remmeta.set_extension(extension)))
         return queue
 
     def test_folder(self, input_folder, folder_type):
@@ -84,5 +84,3 @@ class RemSession:
         self.session_limits.clear()
         self.file_processing.clear()
         self.preferences.clear()
-
-    # TODO Create File map function
