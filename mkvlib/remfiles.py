@@ -4,6 +4,7 @@ import json
 
 class VideoProcessor:
     """Process video file"""
+    __slots__ = ['session', 'file_parts', 'info_global']
     def __init__(self, session):
         self.session = session
         self.file_parts = None

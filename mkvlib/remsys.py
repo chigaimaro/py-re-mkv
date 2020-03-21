@@ -70,9 +70,18 @@ def clear_logs(amount):
                 log.info(f"Removed old log file: {file_to_delete}")
 
 
+def test_path(input_path):
+    if not os.path.exists(input_path):
+        exit_on_error(f"{input_path} not found, quitting")
+    else:
+        log.info(f"Found: {input_path}")
+        return Path(input_path)
+
+
 # Run process
 def invoke_cmd(cmd):
     return subprocess.run(cmd, capture_output=True, text=True)
+
 
 # Log error and exit
 def exit_on_error(message):
