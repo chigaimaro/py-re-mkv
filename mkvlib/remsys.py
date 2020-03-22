@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 
 
 # Setup logging
-def config_logger(log_level="INFO"):
+def config_logger(log_level="DEBUG"):
     """ Configures logger handler and logger stream to file
         :param log_level: Logging level, default level is INFO
         :return:
@@ -31,12 +31,12 @@ def config_logger(log_level="INFO"):
     log_format = logging.Formatter(
         '%(asctime)s : [%(module)s]: %(levelname)s : %(message)s')
     log_fh_handler = logging.FileHandler(
-        filename=log_path.joinpath(session_log_name), mode='w')
+        filename=str(log_path.joinpath(session_log_name)), mode='w')
     setup_log = logging.getLogger()
     setup_log.setLevel(log_level)
     log_fh_handler.setLevel(log_level)
     log_fh_handler.setFormatter(log_format)
-    log.addHandler(log_fh_handler)
+    setup_log.addHandler(log_fh_handler)
     return setup_log
 
 
