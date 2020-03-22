@@ -8,7 +8,6 @@ def main():
     # Check version of python
     remsys.check_py_version()
     session = remset.read_config_file('settings.ini')
-    print('hi')
 
 
 if __name__ == '__main__':
